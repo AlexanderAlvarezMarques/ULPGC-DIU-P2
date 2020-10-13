@@ -1,5 +1,8 @@
 package principal;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.DecimalFormat;
@@ -11,7 +14,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /**
  * @author Alexander Álvarez Marques
@@ -70,21 +75,21 @@ public class Main extends javax.swing.JFrame {
         javax.swing.GroupLayout panelCurrencyLayout = new javax.swing.GroupLayout(panelCurrency);
         panelCurrency.setLayout(panelCurrencyLayout);
         panelCurrencyLayout.setHorizontalGroup(
-            panelCurrencyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCurrencyLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelCurrencyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comboBoxCurrency, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labelCurrency, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                panelCurrencyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelCurrencyLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(panelCurrencyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(comboBoxCurrency, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(labelCurrency, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         panelCurrencyLayout.setVerticalGroup(
-            panelCurrencyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCurrencyLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelCurrency, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboBoxCurrency, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                panelCurrencyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelCurrencyLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(labelCurrency, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboBoxCurrency, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         comboBoxCurrency.setSelectedIndex(exchanges.size() - 2);
@@ -94,15 +99,15 @@ public class Main extends javax.swing.JFrame {
         javax.swing.GroupLayout panelExchangeInformationLayout = new javax.swing.GroupLayout(panelExchangeInformation);
         panelExchangeInformation.setLayout(panelExchangeInformationLayout);
         panelExchangeInformationLayout.setHorizontalGroup(
-            panelExchangeInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelExchangeInformationLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelExchangeInformation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                panelExchangeInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelExchangeInformationLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(labelExchangeInformation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())
         );
         panelExchangeInformationLayout.setVerticalGroup(
-            panelExchangeInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelExchangeInformation)
+                panelExchangeInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(labelExchangeInformation)
         );
 
         labelExchangeCalculator.setText("Introduzca el valor de cambio:");
@@ -125,67 +130,67 @@ public class Main extends javax.swing.JFrame {
         javax.swing.GroupLayout panelExchangeCalculatorLayout = new javax.swing.GroupLayout(panelExchangeCalculator);
         panelExchangeCalculator.setLayout(panelExchangeCalculatorLayout);
         panelExchangeCalculatorLayout.setHorizontalGroup(
-            panelExchangeCalculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelExchangeCalculatorLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelExchangeCalculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(inputExchange)
-                    .addComponent(labelExchangeFinalValue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panelExchangeCalculatorLayout.createSequentialGroup()
-                        .addGroup(panelExchangeCalculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonCalculate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(panelExchangeCalculatorLayout.createSequentialGroup()
-                                .addComponent(labelExchangeCalculator)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                panelExchangeCalculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelExchangeCalculatorLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(panelExchangeCalculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(inputExchange)
+                                        .addComponent(labelExchangeFinalValue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(panelExchangeCalculatorLayout.createSequentialGroup()
+                                                .addGroup(panelExchangeCalculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(buttonCalculate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addGroup(panelExchangeCalculatorLayout.createSequentialGroup()
+                                                                .addComponent(labelExchangeCalculator)
+                                                                .addGap(0, 0, Short.MAX_VALUE)))
+                                                .addContainerGap())))
         );
         panelExchangeCalculatorLayout.setVerticalGroup(
-            panelExchangeCalculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelExchangeCalculatorLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelExchangeCalculator)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(inputExchange, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(buttonCalculate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelExchangeFinalValue, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                panelExchangeCalculatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelExchangeCalculatorLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(labelExchangeCalculator)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(inputExchange, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(buttonCalculate)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelExchangeFinalValue, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18))
         );
 
         javax.swing.GroupLayout panelBaseLayout = new javax.swing.GroupLayout(panelBase);
         panelBase.setLayout(panelBaseLayout);
         panelBaseLayout.setHorizontalGroup(
-            panelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBaseLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelCurrency, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelExchangeInformation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelExchangeCalculator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                panelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelBaseLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(panelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(panelCurrency, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(panelExchangeInformation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(panelExchangeCalculator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap())
         );
         panelBaseLayout.setVerticalGroup(
-            panelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBaseLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelCurrency, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelExchangeInformation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelExchangeCalculator, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                panelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelBaseLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(panelCurrency, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(panelExchangeInformation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(panelExchangeCalculator, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelBase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(panelBase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelBase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(panelBase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -280,6 +285,10 @@ public class Main extends javax.swing.JFrame {
         }
     }
 
+    private boolean checkInputNumberFormat(String input) {
+        return Pattern.compile("\\d*([.]\\d+)?").matcher(input).find();
+    }
+
     private String[] getCurrencies() {
 
         String[] currencies = new String[exchanges.size()];
@@ -296,24 +305,59 @@ public class Main extends javax.swing.JFrame {
 
     }
 
-    private static JSONObject requestURLExchanges() throws Exception {
+    private JSONObject requestURLExchanges() {
 
-        URLConnection connection = new URL("https://api.exchangeratesapi.io/latest").openConnection();
-
-        if (connection != null) {
-            Scanner scanner = new Scanner(connection.getInputStream());
-            String response = scanner.useDelimiter("\\A").next();
-
-            JSONObject json = new JSONObject(response);
-            return (JSONObject) json.get("rates");
-
+        JSONObject json = null;
+        
+        try {
+            json = readJSONFileFromURL("ttps://api.exchangeratesapi.io/latest?base=EUR");
+        } catch (IOException | JSONException e) {
+            try {
+                json = readJSONFileFromFile("./src/main/java/files/eur.json");
+            } catch (Exception ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                showMessage("Error durante la apertura/lectura del fichero."
+                        + "\nContacte con el administrador del sistema."
+                        + "\nEl programa se cerrara de forma inmediata.");
+                System.exit(-1);
+            }
         }
-
-        return null;
+        
+        return json.getJSONObject("rates");
     }
 
-    private boolean checkInputNumberFormat(String input) {
-        return Pattern.compile("\\d*([.]\\d+)?").matcher(input).find();
+    private JSONObject readJSONFileFromURL(String url) throws JSONException, IOException {
+
+        JSONObject json;
+        URLConnection connection;
+        Scanner scanner;
+
+        connection = new URL(url).openConnection();
+        scanner = new Scanner(connection.getInputStream());
+
+        String response = scanner.useDelimiter("\\A").next();
+        json = new JSONObject(response);
+
+        return (JSONObject) json.get("rates");
+    }
+    
+    private JSONObject readJSONFileFromFile(String source) throws Exception {
+        
+        FileReader fr = new FileReader(source);
+        
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse(fr);
+        String str = obj.toString();
+//        str = str.substring(1, str.length() - 1);
+        
+        JSONObject json = new JSONObject(str);
+        
+        return json;
+        
+    }
+
+    private void showMessage(String txt) {
+        JOptionPane.showMessageDialog(null, txt);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

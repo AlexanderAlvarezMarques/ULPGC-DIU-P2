@@ -268,19 +268,18 @@ public class Main extends javax.swing.JFrame {
         inputExchange.setText("1.");
         
         switch (currency) {
-            case "EUR" -> {
+            case "EUR":
                 text = "1€ = " + df.format(calculateExchange()) + " $";
                 labelExchangeInformation.setText(text);
-            }
-            case "USD" -> {
+                break;
+            case "USD":
                 text = "1$ = " + df.format(calculateExchange()) + " €";
                 labelExchangeInformation.setText(text);
-            }
-            default -> {
+                break;
+            default:
                 showMessage("Se ha producido un error."
                         + "\nCerrando el programa de forma inminente.");
                 System.exit(0);
-            }
         }
         
         inputExchange.setText(lastValue);
